@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-postgres-citus
+  labels:
+    app: {{ .Release.Name }}-postgres-citus
+spec:
+  serviceName: "{{ .Release.Name }}-postgres-citus"
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-postgres-citus
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-postgres-citus
+    spec:
+      containers:
+      - name: postgres
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: {{ .Values.postgresql.username }}
+        - name: POSTGRES_PASSWORD
+          value: {{ .Values.postgresql.password }}
+        volumeMounts:
+        - name: postgres-pv-storage
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-pv-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.persistentVolume.size }}
