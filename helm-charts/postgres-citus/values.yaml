@@ -1,0 +1,12 @@
+replicaCount: 3
+
+image:
+  repository: citusdata/citus
+  tag: 10.0
+
+postgresql:
+  username: XXXXXXXXXX
+  password: XXXXXXXXXX
+
+persistentVolume:
+  size: 5Gi
