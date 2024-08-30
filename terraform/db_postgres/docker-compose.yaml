@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:13
+    container_name: latam_postgres
+    environment:
+      POSTGRES_DB: latam
+      POSTGRES_USER: latam_user
+      POSTGRES_PASSWORD: latam_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: my_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: XXXXXXXXX@XXXXXXXXX.com
+      PGADMIN_DEFAULT_PASSWORD: XXXXXXXXXXXXXXXXX
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    driver: local
