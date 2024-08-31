@@ -9,6 +9,7 @@ from threading import Thread
 app = FastAPI()
 
 DATABASE_URL = "postgresql://latam_user:latam_password@localhost/latamdb"
+# se deberá reemplazar por la URL de la base de datos que se haya configurado
 
 # Conectar a la base de datos
 async def get_db_pool():
@@ -49,7 +50,7 @@ def start_publishing_endpoint(request: MessageRequest):
         # Iniciar el proceso en un hilo separado
         current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         message = request.message + ". Fecha y hora: " + current_datetime
-        thread = Thread(target=start_publishing, args=("arn:aws:sns:us-east-2:825483337283:" + request.topic_arn, message))
+        thread = Thread(target=start_publishing, args=("arn:aws:sns:us-east-2:111111111111:" + request.topic_arn, message))
         thread.start()
         return {"status": "Se inició la publicación"}
     except Exception as e:
