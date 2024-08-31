@@ -1,0 +1,15 @@
+services:
+  latam_sqs_processor:
+    build: .
+    container_name: latam_sqs_processor
+    environment:
+      - AWS_ACCESS_KEY_ID=XXXXXXXXX
+      - AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXX
+      - AWS_DEFAULT_REGION=us-east-2
+      - DB_NAME=latamdb
+      - DB_USER=latam_user
+      - DB_PASSWORD=latam_password
+      - DB_HOST=localhost
+      - DB_PORT=5432
+      - SQS_QUEUE_URL=https://sqs.us-east-2.amazonaws.com/111111111111/data-processing-queue
+    command: python suscriptor.py
