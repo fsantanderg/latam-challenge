@@ -1,9 +1,0 @@
-services:
-  latam_sns_publisher:
-    build: .
-    container_name: latam_sns_publisher
-    environment:
-      - AWS_ACCESS_KEY_ID=XXXXXXXXX
-      - AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXXXXX
-      - AWS_DEFAULT_REGION=us-east-2
-    command: python publicador.py
