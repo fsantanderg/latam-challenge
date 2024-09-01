@@ -70,19 +70,20 @@ Con la ayuda de terraform se crearon los script para la creación de los recurso
 
 # Parte 4 - Métricas y Monitoreo
  - 4.1 Se proponen las siguiente 3 métricas:
-    1.- Tasa de Errores (Error Rate): Importante es validar que no existan respuestas del tipo 4xx o 5xx.
+    - Tasa de Errores (Error Rate): Importante es validar que no existan respuestas del tipo 4xx o 5xx.
     2.- Tasa de éxito: Medir el porcentaje de transacciones o procesos clave (como pagos, registros de usuario, procesamiento de datos) que se completan con éxito en el sistema.
     3.- Latencia: Medición critica el cual representa lo que demora el sistema en procesar una solicitud y devolver una respuesta al usuario.
 
  - 4.2 Herramienta de Visualización Propuesta: Datadog, con esta herramienta es posible medir
-        - Latencia de Respuesta de la API (API Response Time)
-        - Tasa de Errores (Error Rate)
-        - Tasa de Éxito en Transacciones o Procesos Críticos (Success Rate of Critical Transactions)
-        - Métricas Básicas de Recursos (CPU/RAM/DISK USAGE)
-        - Alertas sintéticas web
-        - Alertas multisteps API
-        - Alertas de monitoreo certificados SSL
-        - Alertas de monitoreo en base a LOGs del microservicio
+    - Latencia de Respuesta de la API (API Response Time)
+    - Tasa de Errores (Error Rate)
+    - Tasa de Éxito en Transacciones o Procesos Críticos (Success Rate of Critical Transactions)
+    - Métricas Básicas de Recursos (CPU/RAM/DISK USAGE)
+    - Alertas sintéticas web
+    - Alertas multisteps API
+    - Alertas de monitoreo certificados SSL
+    - Alertas de monitoreo en base a LOGs del microservicio
+    
     Dado lo anterior y de acuerdo al listado anterior, esto nos podría ayudar para:
     - Monitoreo Integral y Correlación de Datos: Datadog facilita la correlación entre métricas, logs y trazas, proporcionando una visión completa del estado del sistema. Esto permite identificar rápidamente la causa raíz de un problema y tomar medidas correctivas antes de que afecten gravemente a los usuarios.
 
