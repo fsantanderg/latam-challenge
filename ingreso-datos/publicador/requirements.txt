@@ -1,0 +1,7 @@
+boto3
+fastapi
+asyncpg
+pydantic
+datetime
+uvicorn
+Thread
