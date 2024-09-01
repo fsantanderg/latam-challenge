@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: fsantanderg/latam_publisher
+  tag: 1.0.2
+  
+service:
+  #type: ClusterIP
+  type: LoadBalancer
+
+env:
+  namespace: latam-api-sns-publisher
+  DATABASE_URL: "postgresql://latam_user:latam_password@localhost/latamdb"
+
+resources:
+  limits:
+    cpu: "100m"
+    memory: "128Mi"
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+
+
+#Para Jenkins
+#helm template app-api-publisher ./ > output.yaml
+#kubectl apply -f output.yaml
+
+

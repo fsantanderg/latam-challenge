@@ -1,0 +1,102 @@
+---
+# Source: latam_api_sns_publisher/templates/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: latam-api-sns-publisher
+  labels:
+    name: latam-api-sns-publisher
+---
+# Source: latam_api_sns_publisher/templates/secret-aws.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aws-credentials-secret
+  namespace: latam-api-sns-publisher
+type: Opaque
+data:
+  AWS_ACCESS_KEY_ID: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  AWS_SECRET_ACCESS_KEY: XXXXXXXXXXXXXXXXXXXXXX
+  AWS_DEFAULT_REGION: XXXXXXXXXXXXXXXXXXXX
+---
+# Source: latam_api_sns_publisher/templates/secret-docker.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secretdocker
+  namespace: latam-api-sns-publisher
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: >-
+    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+---
+# Source: latam_api_sns_publisher/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-api-publisher-latam-api-sns-publisher
+  namespace: latam-api-sns-publisher
+  labels:
+    app: app-api-publisher-latam-api-sns-publisher
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8010
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  selector:
+    app: app-api-publisher-latam-api-sns-publisher
+---
+# Source: latam_api_sns_publisher/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-api-publisher-latam-api-sns-publisher
+  namespace: latam-api-sns-publisher
+  labels:
+    app: app-api-publisher-latam-api-sns-publisher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-api-publisher-latam-api-sns-publisher
+  template:
+    metadata:
+      labels:
+        app: app-api-publisher-latam-api-sns-publisher
+    spec:
+      containers:
+        - name: latam-api-sns-publisher
+          image: fsantanderg/latam_publisher:1.0.2
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://latam_user:latam_password@localhost/latamdb"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials-secret
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials-secret
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_DEFAULT_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials-secret
+                  key: AWS_DEFAULT_REGION
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+      imagePullSecrets:
+        - name: secretdocker
+      imagePullSecrets:
+        - name: aws-credentials-secret
