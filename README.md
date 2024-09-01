@@ -6,6 +6,7 @@ Para utilizar el esquema PUB/SUB, se considerará la utilización de los siguien
  - Amazon Simple Notification Service (ASNS), quien recibira los mensajes generados
  - Amazon SQS, quien se encargara de procesar los mensajes
 
+=======
 # Parte 1 - Infraestructura e IaC
 Para utilizar el esquema PUB/SUB, se considerará la utilización de los siguientes servicios:
 
@@ -39,12 +40,18 @@ Con la ayuda de terraform se crearon los script para la creación de los recurso
      Para utilizar este ENDPOINT se debe realizar bajo la siguiente URL "{{URI}}/ingresar-datos"
 
 
-     
+     ![ENDPOINT POST](static/post.png)
+
 
      * GET
   - 2.2
   - 2.3
   - 2.4
+
+
+
+
+
 
 
 
