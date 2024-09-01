@@ -1,0 +1,7 @@
+apiVersion: v2
+name: latam_api_sns_publisher
+description: Helm chart para implementar la aplicación FastAPI y SNS Publisher
+
+type: application
+version: 0.1.0
+appVersion: "1.0"
